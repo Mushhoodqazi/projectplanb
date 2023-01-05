@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState ,useRef} from "react";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
@@ -7,6 +8,10 @@ function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
   const ref = useRef();
   useEffect(()=>ref.current.focus(),[]);
   // User Login info
@@ -26,7 +31,7 @@ function Login() {
     pass: "invalid password"
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     //Prevent page reload
     event.preventDefault();
 
@@ -46,7 +51,15 @@ function Login() {
       }
     } else {
       // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
+      console.log(uname.value)
+      console.log(pass.value)
+      await axios.post("http://localhost:5000/Planb",{UserName: uname.value, Password: pass.value})
+    
+          alert("You have been caught Bruh!!")
+     
+
+        setErrorMessages({ name: "uname", message: errors.uname });
+      
     }
 
    
@@ -65,12 +78,12 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <div className="input-container">
           <label>Username </label>
-          <input ref={ref} type="text" name="uname" required />
+          <input ref={ref} type="text" name="uname" onChange={(e)=>setEmail(e.target.value)}  required />
           {renderErrorMessage("uname")}
         </div>
         <div className="input-container">
           <label>Password </label>
-          <input type="password" name="pass" required />
+          <input type="password" name="pass" onChange={(e)=>setPassword(e.target.value)}  required />
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container">

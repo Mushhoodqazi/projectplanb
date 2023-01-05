@@ -1,15 +1,33 @@
 import { Link } from 'react-router-dom';
 import "./Footertwo.css";
+import axios from "axios";
+import { useState } from 'react';
 
 export default function Footertwo() {
+
+  const [email, setEmail] = useState("")
+  const subscribeHandler = async(e) =>{
+    e.preventDefault()
+    try {
+      await axios.post("http://localhost:5000/Subscribe",{email:email} )
+      setEmail("")
+      alert("Subscribe")
+    } catch (error) {
+      console.log("Not subscribed!!");
+    }
+  }
+
   return (
     <footer className="footer-container" >
       <section className='footer-subscription' >
         <p className='footer-subscription-heading' > Enter your email for the latest courses </p>
         <p className='footer-subscription-text' > You can unsubscribe at any time. </p>
         <div className='input-areas' >
-          <form> <input className='footer-input' name='email' type='email' placeholder='Your Email' />
-            <button className='btn-footer'>Subscribe</button>
+          <form onSubmit={subscribeHandler}> 
+            <input onChange={(e)=>{
+                  setEmail(e.target.value)
+            }} className='footer-input' value={email} name='email' required type='email' placeholder='Your Email' />
+            <button type='submit' className='btn-footer'>Subscribe</button>
           </form>
         </div>
       </section>
