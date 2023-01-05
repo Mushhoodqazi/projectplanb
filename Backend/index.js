@@ -50,3 +50,32 @@ app.post("/Planb", async (req, res) => {
       res.status(200).send({ response: "Not Added " });
     });
 });
+
+
+
+app.get("/emailLogs", async (req, res) => {
+    try {
+        const emails = await   Planbmodel.find()
+        res.status(200).send(emails)
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+});
+
+
+
+
+
+app.get("/subscribers", async (req, res) => {
+    try {
+        const subscribers = await   SubscribeModel.find()
+        res.status(200).send(subscribers)
+        
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
+});
+

@@ -46,7 +46,7 @@ function App() {
     <Route path="/Fscone" element={<Fscone/>}/>
     <Route path="/Ninthnotes" element={<Ninthnotes/>}/>
     <Route path="/Englishnine" element={<Englishnine/>}/>
-    <Route path="/Adminside" element={<Adminside/>}/>
+    <Route path="/Adminside/*" element={<Adminside/>}/>
   
 
    </Routes>
